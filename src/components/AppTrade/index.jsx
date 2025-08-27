@@ -3,9 +3,9 @@ import { executeTrade } from "../../services/tradeService.jsx";
 
 export default function Trade() {
   const stocks = [
-    { id: 1, symbol: "AAPL", name: "Apple", price: 182.45 },
-    { id: 2, symbol: "MSFT", name: "Microsoft", price: 325.12 },
-    { id: 3, symbol: "GOOGL", name: "Google", price: 140.67 }
+    { id: 1, symbol: "AAPL", name: "Apple", price: 182.34 },
+    { id: 2, symbol: "MSFT", name: "Microsoft", price: 319.12 },
+    { id: 3, symbol: "GOOGL", name: "Google", price: 135.89 }
   ];
 
   const userId = 1;
@@ -30,7 +30,6 @@ export default function Trade() {
       quantity,
       price: stockObj.price
     };
-
     try {
       const response = await executeTrade(tradeData);
       setMessage(response.message);
@@ -68,9 +67,10 @@ export default function Trade() {
           <label className="block font-bold mb-1">Preço Atual</label>
           <input
             type="text"
-            value={`R$ ${stockObj.price}`}
+            value={`R$ ${stockObj.price*quantity}`}
             disabled
             className="border p-2 w-full bg-gray-200"
+            required
           />
         </div>
 
@@ -81,8 +81,8 @@ export default function Trade() {
             onChange={(e) => setType(e.target.value)}
             className="border p-2 w-full"
           >
-            <option value="buy">Compra</option>
-            <option value="sell">Venda</option>
+            <option value="buy" required>Compra</option>
+            <option value="sell" required>Venda</option>
           </select>
         </div>
 
@@ -94,6 +94,7 @@ export default function Trade() {
             value={quantity}
             onChange={(e) => setQuantity(parseInt(e.target.value))}
             className="border p-2 w-full"
+            required
           />
         </div>
 
